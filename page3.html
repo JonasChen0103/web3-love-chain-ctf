@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web3.0戀鏈資訊營 - 密碼學CTF最終關卡</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-crypto">
+<div class="container">
+  <h1>🎯 最後一封信</h1>
+
+  <!-- 進度指示器 -->
+  <div class="progress-indicator">
+    <div class="progress-step completed">1</div>
+    <div class="progress-step completed">2</div>
+    <div class="progress-step active">3</div>
+  </div>
+
+  <div class="section" id="access-check" style="display: none;">
+    <h2>⚠️ 存取受限</h2>
+    <p>請依序完成前面的關卡才能進入最終挑戰。</p>
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="index.html" class="button-link">回到第一關</a>
+    </div>
+  </div>
+
+  <div class="section" id="main-content">
+    <h2>最後的謎題</h2>
+    <p>能來到這裡的你，真的很厲害！我必須承認，我開始認真地想要認識你了。💌</p>
+    <p>其實從小到大，我就很喜歡那種需要動腦筋的遊戲。小時候我跟我姐姐會互相設計謎題，最有趣的是那種需要兩樣東西組合才能解開的謎題。</p>
+    <p>還記得我在第一關送給你的小禮物嗎？那塊看起來很普通的起司，其實藏著解開這最後謎題的關鍵...</p>
+
+    <div class="hint">
+      <strong>💡 線索：</strong>
+      有時候看似簡單的圖案，其實隱藏著重要的資訊。仔細觀察每個細節，你會發現規律的。
+      <br><small>想想看，什麼東西能讓隱藏的文字顯現出來？</small>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <h3>🔤 字母對照表</h3>
+      <pre style="font-size: 1.0rem; line-height: 1.6;">
+7  I  N  U  R  %  H  O
+S  P  Q  K  !  K  :  Q
+E  C  B  T  2  $  L  G
+W  M  6  F  A  0  #  C
+2  8  D  Y  V  X  !  Z
+3  R  5  J  H  W  1  P
+      </pre>
+    </div>
+
+    <textarea id="final-input" placeholder="透過圖像和對照表找到的訊息..."></textarea>
+
+    <div style="display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap;">
+      <button onclick="checkFinalAnswer()" id="final-submit">提交最終答案</button>
+      <button onclick="showHint(3)" style="background: #6c757d;">需要提示？</button>
+      <button onclick="showGridHelper()" style="background: #17a2b8;">網格助手</button>
+    </div>
+
+    <div id="final-result"></div>
+  </div>
+
+  <!-- 網格助手 -->
+  <div class="section hidden" id="grid-helper">
+    <h2>🔍 視覺密碼學助手</h2>
+    <p>點擊下方字母來模擬起司洞洞效果：</p>
+
+    <div id="interactive-grid" style="font-family: monospace; font-size: 1.2rem; line-height: 2; text-align: center; margin: 1rem 0;">
+      <!-- 將由JavaScript生成 -->
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <button onclick="clearSelection()" style="background: #dc3545;">清除選擇</button>
+      <button onclick="showSelected()" style="background: #28a745;">顯示選中字母</button>
+    </div>
+
+    <div id="selected-letters" style="background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 10px; min-height: 40px;">
+      <strong>選中的字母：</strong><span id="letter-sequence"></span>
+    </div>
+  </div>
+
+  <!-- 成功頁面 -->
+  <div class="section hidden" id="success-section">
+    <h2>🎉 挑戰完成！</h2>
+    <p><strong>恭喜你成功解開了所有密碼！</strong></p>
+
+    <div class="hint" style="background: linear-gradient(135deg, #d4edda 0%, #c8e6c9 100%);">
+      <strong>🎯 最終任務完成！</strong>
+      恭喜你解開了所有的謎題！現在去找到我的 Instagram 帳號，追蹤我吧～我會知道是誰成功破解了我設計的遊戲！<br>
+      💕 期待在那裡看到你的訊息！<br>
+      <small>（你解出的答案就是我的 IG 帳號格式）</small>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <a href="#" target="_blank" class="button-link glow-effect" style="font-size: 1.2rem;" id="instagram-link">
+        📱 前往 Instagram
+      </a>
+    </div>
+  </div>
+
+  <!-- 導航 -->
+  <div style="text-align: center; margin-top: 2rem;">
+    <a href="page2.html" class="button-link" style="background: #6c757d;">← 回到第二關</a>
+    <button onclick="resetGame()" style="background: #dc3545; margin-left: 10px;">重新開始遊戲</button>
+  </div>
+</div>
+
+<script src="scripts/crypto.js"></script>
+<script>
+  // 簡化的存取檢查函數
+  function checkAccess() {
+    try {
+      const progress = localStorage.getItem('ctf_progress');
+      console.log('讀取到的進度:', progress);
+
+      if (!progress) return false;
+
+      const data = JSON.parse(progress);
+      console.log('解析後的進度:', data);
+
+      // 檢查是否可以存取第三關：需要 level >= 3 且已完成第一、二關
+      const hasAccess = data.level >= 3 && data.completed &&
+              data.completed.includes(1) && data.completed.includes(2);
+      console.log('第三關存取權限:', hasAccess);
+
+      return hasAccess;
+    } catch (e) {
+      console.error('進度檢查錯誤:', e);
+      return false;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('第三關載入中...');
+
+    // 執行雙重檢查
+    if (!checkAccess() || !checkPageAccess()) {
+      document.getElementById('access-check').style.display = 'block';
+      document.getElementById('main-content').style.display = 'none';
+      return;
+    }
+
+    console.log('第三關已載入，請完成最終挑戰');
+  });
+</script>
+</body>
+</html>

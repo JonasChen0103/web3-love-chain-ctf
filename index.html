@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web3.0戀鏈資訊營 - 密碼學CTF第一關</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h1>💌 如果你能解開我的心</h1>
+
+  <!-- 進度指示器 -->
+  <div class="progress-indicator">
+    <div class="progress-step active">1</div>
+    <div class="progress-step">2</div>
+    <div class="progress-step">3</div>
+  </div>
+
+  <div class="section" id="level1">
+    <h2>第一封信</h2>
+    <p><strong>To:</strong> 那個勇敢告白的人</p>
+    <p>謝謝你的來信，說實話，我有點意外也有點開心。但是呢，我覺得真正了解一個人不只是看表面，而是要看他有沒有足夠的耐心和智慧。</p>
+    <p>所以我想了一個小遊戲給你。我最近迷上了一些有趣的文字遊戲，特別是那種需要動腦筋的。昨天我在最愛的那家義大利餐廳吃飯時（你知道的，就是那家我特別愛點某種沙拉的地方），突然想到了一句很重要的話。</p>
+    <p>我把它寫成了一種特別的形式，如果你能解開它，我就知道我們是有緣分的～</p>
+
+    <div class="hint">
+      <strong>💡 小提示：</strong>
+      這種文字遊戲的靈感來自古羅馬時期，是一種很經典的加密方式。原理很簡單：把字母按順序移動固定的位置。<br>
+      <small>想想看，什麼沙拉會跟古羅馬有關呢？試試看不同的位移數字...</small>
+    </div>
+
+    <pre id="caesar-text">frperg vf gur xrl gb zl ybir</pre>
+
+    <textarea id="caesar-input" placeholder="請輸入解密後的內容"></textarea>
+
+    <div style="display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap;">
+      <button onclick="checkCaesar()" id="caesar-submit">提交答案</button>
+      <button onclick="showHint(1)" style="background: #6c757d;">需要提示？</button>
+    </div>
+
+    <div id="caesar-result"></div>
+  </div>
+
+  <div class="section">
+    <h2>P.S. 送你一個小禮物 🧀</h2>
+    <p>對了，我還做了一個小東西想送給你。這是我用繪圖軟體畫的一塊起司，看起來很可愛對吧？雖然看起來只是普通的裝飾，但說不定以後會有意想不到的用途呢～記得保存下來哦！</p>
+
+    <div class="cheese-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="240" height="180" viewBox="0 0 240 180" id="cheese-svg">
+        <defs>
+          <linearGradient id="cheeseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+          </linearGradient>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.3)"/>
+          </filter>
+        </defs>
+
+        <!-- 起司主體 -->
+        <rect x="0" y="0" width="240" height="180" rx="15" ry="15"
+              fill="url(#cheeseGradient)"
+              filter="url(#shadow)"
+              stroke="#E6A500"
+              stroke-width="2"/>
+
+        <!-- 按照6行8列字母對照表排列，每格30x30 -->
+        <!-- 對應答案 INS:ELMA0831 的洞洞位置（使用每個字母第一次出現的位置） -->
+
+        <!-- I: 第3行第1列 (row=2, col=0) -->
+        <circle cx="15" cy="75" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- N: 第4行第5列 (row=3, col=4) -->
+        <circle cx="135" cy="105" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- S: 第2行第1列 (row=1, col=0) -->
+        <circle cx="15" cy="45" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- :: 第6行第1列 (row=5, col=0) -->
+        <circle cx="15" cy="165" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- E: 第1行第2列 (row=0, col=1) -->
+        <circle cx="45" cy="15" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- L: 第6行第7列 (row=5, col=6) -->
+        <circle cx="195" cy="165" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- M: 第4行第2列 (row=3, col=1) -->
+        <circle cx="45" cy="105" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- A: 第1行第3列 (row=0, col=2) -->
+        <circle cx="75" cy="15" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- 0: 第4行第6列 (row=3, col=5) -->
+        <circle cx="165" cy="105" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- 8: 第5行第2列 (row=4, col=1) -->
+        <circle cx="45" cy="135" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- 3: 第3行第7列 (row=2, col=6) -->
+        <circle cx="195" cy="75" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- 1: 第2行第7列 (row=1, col=6) -->
+        <circle cx="195" cy="45" r="8" fill="#8B4513" opacity="1"/>
+
+        <!-- 裝飾性洞洞，增加真實感但不影響解謎 -->
+        <circle cx="75" cy="25" r="5" fill="#8B4513" opacity="0.6"/>
+        <circle cx="125" cy="35" r="4" fill="#8B4513" opacity="0.7"/>
+        <circle cx="175" cy="25" r="5" fill="#8B4513" opacity="0.5"/>
+        <circle cx="85" cy="55" r="4" fill="#8B4513" opacity="0.8"/>
+        <circle cx="215" cy="95" r="4" fill="#8B4513" opacity="0.6"/>
+        <circle cx="25" cy="125" r="5" fill="#8B4513" opacity="0.7"/>
+        <circle cx="155" cy="145" r="4" fill="#8B4513" opacity="0.6"/>
+        <circle cx="115" cy="155" r="5" fill="#8B4513" opacity="0.8"/>
+        <circle cx="225" cy="125" r="4" fill="#8B4513" opacity="0.7"/>
+        <circle cx="65" cy="185" r="4" fill="#8B4513" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <div style="text-align: center;">
+      <button onclick="downloadCheese()" class="glow-effect">下載起司圖片</button>
+    </div>
+
+    <p class="cheese-hint">這塊起司看起來平凡無奇，但有時候最簡單的東西藏著最大的秘密...</p>
+  </div>
+</div>
+
+<script src="scripts/crypto.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('第一關已載入，請輸入正確答案來解鎖下一關');
+  });
+</script>
+</body>
+</html>

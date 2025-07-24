@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web3.0戀鏈資訊營 - 密碼學CTF第二關</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-valentine">
+<div class="container">
+  <h1>💕 第二關</h1>
+
+  <!-- 進度指示器 -->
+  <div class="progress-indicator">
+    <div class="progress-step completed">1</div>
+    <div class="progress-step active">2</div>
+    <div class="progress-step">3</div>
+  </div>
+
+  <div class="section" id="access-check" style="display: none;">
+    <h2>⚠️ 存取受限</h2>
+    <p>請先完成第一關才能進入第二關。</p>
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="index.html" class="button-link">回到第一關</a>
+    </div>
+  </div>
+
+  <div class="section" id="main-content">
+    <h2>第二封信</h2>
+    <p>哇，你真的解開了第一道謎題！我開始對你刮目相看了。💖</p>
+    <p>其實我一直都是個很愛玩文字遊戲的人，從小就喜歡在日記裡寫一些只有自己看得懂的密碼。你知道嗎？我有個習慣，每當我很喜歡一個人的時候，就會不自覺地一直說某個英文單字...</p>
+    <p>我的朋友們都笑我，說我一激動就會冒出那個詞，像是口頭禪一樣。你應該猜得到是哪個詞吧？<span class="tooltip" data-tooltip="想想看...四個字母，用來表達最深情感的詞">😊</span></p>
+
+    <div class="hint">
+      <strong>線索：</strong>
+      這次的密碼比上一個複雜一些，不是每個字母都用同樣的方式變換。我用了一個重複的關鍵詞來加密，這個詞對我來說很重要...
+      <br><small>提示：這種加密方式需要一個密鑰，密鑰會重複使用來加密每個字母</small>
+    </div>
+
+    <p>如果你真的了解我，就幫我解開這段話吧：</p>
+    <pre id="vigenere-text">tkvrehjfpmjycpvfp</pre>
+
+    <textarea id="vigenere-input" placeholder="請輸入解密後的內容"></textarea>
+
+    <div style="display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap;">
+      <button onclick="checkVigenere()" id="vigenere-submit">提交答案</button>
+      <button onclick="showHint(2)" style="background: #6c757d;">需要提示？</button>
+      <button onclick="showVigenereTools()" style="background: #28a745;">解密工具</button>
+    </div>
+
+    <div id="vigenere-result"></div>
+  </div>
+
+  <!-- 解密工具 -->
+  <div class="section hidden" id="vigenere-tools">
+    <h2>🔧 線上密碼工具</h2>
+    <p>如果你需要一些工具來幫助解密，這些網站可能會有用：</p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <h3>🔐 CyberChef</h3>
+        <p>一個很強大的線上密碼分析工具，裡面有各種古典和現代的密碼演算法</p>
+        <a href="https://gchq.github.io/CyberChef/" target="_blank" class="tool-link">前往 CyberChef</a>
+      </div>
+
+      <div class="tool-card">
+        <h3>📊 dCode 密碼破解</h3>
+        <p>專門研究密碼學的網站，收錄了很多經典的加密解密方法</p>
+        <a href="https://www.dcode.fr/" target="_blank" class="tool-link">前往 dCode</a>
+      </div>
+    </div>
+
+    <div class="hint" style="margin-top: 20px;">
+      <strong>💡 溫馨提醒：</strong>
+      密文：<code>tkvrehjfpmjycpvfp</code><br>
+      記住，關鍵就在我剛才說的那個「口頭禪」！
+    </div>
+  </div>
+
+  <!-- 導航 -->
+  <div style="text-align: center; margin-top: 2rem;">
+    <a href="index.html" class="button-link" style="background: #6c757d;">← 回到第一關</a>
+  </div>
+</div>
+
+<script src="scripts/crypto.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('第二關載入中...');
+
+    // 使用全域函數進行存取檢查
+    if (!checkPageSpecificAccess(2)) {
+      document.getElementById('access-check').style.display = 'block';
+      document.getElementById('main-content').style.display = 'none';
+      return;
+    }
+
+    console.log('第二關已載入，請輸入正確答案來解鎖下一關');
+  });
+
+  // 簡化的存取檢查（備用）
+  function checkAccess() {
+    return checkPageSpecificAccess(2);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+# Web3 Love Chain CTF - .gitignore
+
+# ===== 作業系統相關檔案 =====
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# ===== 編輯器與IDE =====
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Atom
+.atom/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ===== Node.js 相關 (如果未來需要) =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ===== 建置與部署 =====
+# 建置輸出目錄
+build/
+dist/
+out/
+
+# 部署相關
+.deploy/
+.surge/
+.netlify/
+.vercel/
+
+# ===== 伺服器與快取 =====
+# 本地伺服器
+.cache/
+.temp/
+.tmp/
+
+# HTTP 快取
+*.log
+
+# ===== 環境變數與設定 =====
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 個人設定檔
+config.local.js
+settings.local.json
+
+# ===== 備份與暫存檔案 =====
+# 備份檔案
+*.bak
+*.backup
+*.orig
+*.rej
+
+# 暫存檔案
+*.tmp
+*.temp
+
+# 壓縮檔案
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# ===== 測試與覆蓋率報告 =====
+# 測試結果
+test-results/
+coverage/
+*.lcov
+
+# Jest
+coverage/
+.nyc_output/
+
+# ===== 文件與資產 =====
+# 不需要版控的圖片資源（如果有大型素材）
+# assets/large/
+# images/raw/
+
+# 自動生成的文件
+sitemap.xml
+robots.txt.generated
+
+# ===== 安全相關 =====
+# 私鑰與憑證
+*.key
+*.pem
+*.p12
+*.pfx
+
+# 密碼與 token
+secrets.json
+.secrets
+
+# ===== 分析與監控 =====
+# Bundle 分析報告
+bundle-report.html
+webpack-bundle-analyzer.html
+
+# 效能監控
+lighthouse-report.html
+
+# ===== 專案特定 =====
+# 解答檔案（避免意外提交完整解答）
+# solutions/
+# answers/
+
+# 測試用的使用者資料
+test-data/
+mock-data/
+
+# 開發時的實驗檔案
+experimental/
+playground/
+sandbox/
+
+# ===== 版本控制 =====
+# Git 相關
+.git/
+.gitkeep
+
+# 其他版本控制系統
+.svn/
+.hg/
+.bzr/
+
+# ===== 日誌檔案 =====
+*.log
+logs/
+*.log.*
+
+# ===== 資料庫檔案 (如果未來需要) =====
+*.db
+*.sqlite
+*.sqlite3
+
+# ===== 註解說明 =====
+# 
+# 這個 .gitignore 是為 Web3 戀鏈資訊營密碼學 CTF 遊戲專案設計的
+# 
+# 包含的主要類別：
+# - 作業系統生成的檔案
+# - 常見編輯器與 IDE 的設定檔
+# - Node.js 生態系統檔案（為未來擴展預留）
+# - 建置與部署相關檔案
+# - 環境變數與敏感資訊
+# - 備份與暫存檔案
+# - 測試與分析報告
+# - 專案特定的排除項目
+# 
+# 如需要追蹤特定檔案，可以使用 git add -f <filename> 強制加入
+#
