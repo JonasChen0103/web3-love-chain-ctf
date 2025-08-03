@@ -1,0 +1,370 @@
+/* ===== 第三關網格密碼學樣式 ===== */
+
+/* === 字母對照表容器 === */
+.letter-grid-container {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-medium);
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow-light);
+}
+
+.letter-grid-container h3 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+/* === 靜態字母網格 === */
+.letter-grid {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 1.4rem;
+  background: white;
+  padding: 25px;
+  border-radius: var(--radius-medium);
+  border: 2px solid #e9ecef;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.grid-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.grid-row:last-child {
+  margin-bottom: 0;
+}
+
+.grid-cell {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: var(--radius-small);
+  font-weight: bold;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  margin: 0 3px;
+  font-size: 1.2rem;
+}
+
+.grid-cell:hover {
+  background: rgba(214, 51, 108, 0.1);
+  transform: scale(1.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(214, 51, 108, 0.2);
+}
+
+/* === 互動式網格容器 === */
+.interactive-grid-container {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.interactive-grid {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  background: white;
+  padding: 20px;
+  border-radius: var(--radius-medium);
+  border: 2px solid #f0f0f0;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+  user-select: none;
+}
+
+.interactive-grid-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.interactive-grid-row:last-child {
+  margin-bottom: 0;
+}
+
+/* === 互動式網格字母 === */
+.grid-letter {
+  display: flex;
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  border-radius: var(--radius-small);
+  margin: 0 2px;
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  font-weight: bold;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.grid-letter:hover {
+  background: rgba(214, 51, 108, 0.3);
+  transform: scale(1.2);
+  border-color: var(--primary-color);
+  z-index: 5;
+  box-shadow: 0 2px 8px rgba(214, 51, 108, 0.3);
+}
+
+.grid-letter.selected {
+  background: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+  font-weight: bold;
+  border-color: var(--primary-dark);
+  box-shadow: 0 2px 8px rgba(214, 51, 108, 0.4);
+}
+
+.grid-letter.selected:hover {
+  background: var(--primary-dark);
+  transform: scale(1.25);
+}
+
+/* === 網格控制按鈕 === */
+.grid-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+/* === 選中字母顯示 === */
+.selected-letters-display {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: var(--radius-medium);
+  margin-top: 15px;
+  border: 2px solid #e9ecef;
+  text-align: center;
+}
+
+.selected-letters-display strong {
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+
+.letter-sequence {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  background: white;
+  padding: 8px 12px;
+  border-radius: var(--radius-small);
+  border: 1px solid var(--border-color);
+  display: inline-block;
+  min-width: 150px;
+  letter-spacing: 2px;
+}
+
+.letter-sequence:empty::before {
+  content: "(尚未選擇)";
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* === 成功區域 === */
+.success-section {
+  background: linear-gradient(135deg, #d4edda 0%, #c8e6c9 100%);
+  border: 2px solid #c3e6cb;
+  animation: successGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes successGlow {
+  from {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(76, 175, 80, 0.5);
+  }
+}
+
+.success-message {
+  text-align: center;
+}
+
+.success-content {
+  margin-bottom: 2rem;
+}
+
+.success-content h3 {
+  color: #2e7d32;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.success-content p {
+  color: #1b5e20;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.success-content small {
+  color: #388e3c;
+  font-style: italic;
+}
+
+/* === Instagram 按鈕 === */
+.instagram-section {
+  margin-top: 2rem;
+}
+
+.instagram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #e4405f 0%, #c13584 50%, #833ab4 100%);
+  color: white;
+  padding: 15px 30px;
+  border-radius: var(--radius-round);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all var(--transition-normal);
+  box-shadow: 0 8px 25px rgba(196, 53, 132, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.instagram-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left var(--transition-slow);
+}
+
+.instagram-btn:hover::before {
+  left: 100%;
+}
+
+.instagram-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(196, 53, 132, 0.5);
+}
+
+/* === 響應式設計 === */
+@media (max-width: 768px) {
+  .letter-grid {
+    font-size: 1.1rem;
+    padding: 20px;
+  }
+
+  .grid-row {
+    margin-bottom: 6px;
+  }
+
+  .grid-cell {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    margin: 0 2px;
+  }
+
+  .interactive-grid {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  .interactive-grid-row {
+    margin-bottom: 6px;
+  }
+
+  .grid-letter {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    margin: 0 1px;
+  }
+
+  .grid-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .selected-letters-display {
+    padding: 10px;
+  }
+
+  .letter-sequence {
+    font-size: 1rem;
+    min-width: 120px;
+  }
+
+  .instagram-btn {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .letter-grid-container {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .letter-grid {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  .grid-row {
+    margin-bottom: 5px;
+  }
+
+  .grid-cell {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    margin: 0 1px;
+  }
+
+  .interactive-grid {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .interactive-grid-row {
+    margin-bottom: 5px;
+  }
+
+  .grid-letter {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+    margin: 0 1px;
+  }
+
+  .success-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .instagram-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .selected-letters-display {
+    padding: 8px;
+  }
+
+  .letter-sequence {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    min-width: 100px;
+    letter-spacing: 1px;
+  }
+}

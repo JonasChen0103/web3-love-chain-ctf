@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web3.0戀鏈資訊營 - 密碼學CTF最終關卡</title>
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/grid.css" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="theme-crypto">
@@ -13,16 +15,16 @@
 
   <!-- 進度指示器 -->
   <div class="progress-indicator">
-    <div class="progress-step completed">1</div>
-    <div class="progress-step completed">2</div>
-    <div class="progress-step active">3</div>
+    <div class="progress-step completed" data-level="1">1</div>
+    <div class="progress-step completed" data-level="2">2</div>
+    <div class="progress-step active" data-level="3">3</div>
   </div>
 
-  <div class="section" id="access-check" style="display: none;">
+  <div class="section" id="access-denied" style="display: none;">
     <h2>⚠️ 存取受限</h2>
     <p>請依序完成前面的關卡才能進入最終挑戰。</p>
-    <div style="text-align: center; margin-top: 2rem;">
-      <a href="index.html" class="button-link">回到第一關</a>
+    <div class="navigation-section">
+      <a href="index.html" class="nav-btn">回到第一關</a>
     </div>
   </div>
 
@@ -38,27 +40,46 @@
       <br><small>想想看，什麼東西能讓隱藏的文字顯現出來？</small>
     </div>
 
-    <div style="text-align: center; margin: 2rem 0;">
+    <div class="letter-grid-container">
       <h3>🔤 字母對照表</h3>
-      <pre style="font-size: 1.0rem; line-height: 1.6;">
-7  I  N  U  R  %  H  O
-S  P  Q  K  !  K  :  Q
-E  C  B  T  2  $  L  G
-W  M  6  F  A  0  #  C
-2  8  D  Y  V  X  !  Z
-3  R  5  J  H  W  1  P
-      </pre>
+      <div class="letter-grid">
+        <div class="grid-row">
+          <span class="grid-cell">7</span><span class="grid-cell">I</span><span class="grid-cell">N</span><span class="grid-cell">U</span>
+          <span class="grid-cell">R</span><span class="grid-cell">%</span><span class="grid-cell">H</span><span class="grid-cell">O</span>
+        </div>
+        <div class="grid-row">
+          <span class="grid-cell">S</span><span class="grid-cell">P</span><span class="grid-cell">Q</span><span class="grid-cell">K</span>
+          <span class="grid-cell">!</span><span class="grid-cell">K</span><span class="grid-cell">:</span><span class="grid-cell">Q</span>
+        </div>
+        <div class="grid-row">
+          <span class="grid-cell">E</span><span class="grid-cell">C</span><span class="grid-cell">B</span><span class="grid-cell">T</span>
+          <span class="grid-cell">2</span><span class="grid-cell">$</span><span class="grid-cell">L</span><span class="grid-cell">G</span>
+        </div>
+        <div class="grid-row">
+          <span class="grid-cell">W</span><span class="grid-cell">M</span><span class="grid-cell">6</span><span class="grid-cell">F</span>
+          <span class="grid-cell">A</span><span class="grid-cell">0</span><span class="grid-cell">#</span><span class="grid-cell">C</span>
+        </div>
+        <div class="grid-row">
+          <span class="grid-cell">2</span><span class="grid-cell">8</span><span class="grid-cell">D</span><span class="grid-cell">Y</span>
+          <span class="grid-cell">V</span><span class="grid-cell">X</span><span class="grid-cell">!</span><span class="grid-cell">Z</span>
+        </div>
+        <div class="grid-row">
+          <span class="grid-cell">3</span><span class="grid-cell">R</span><span class="grid-cell">5</span><span class="grid-cell">J</span>
+          <span class="grid-cell">H</span><span class="grid-cell">W</span><span class="grid-cell">1</span><span class="grid-cell">P</span>
+        </div>
+      </div>
     </div>
 
-    <textarea id="final-input" placeholder="透過圖像和對照表找到的訊息..."></textarea>
-
-    <div style="display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap;">
-      <button onclick="checkFinalAnswer()" id="final-submit">提交最終答案</button>
-      <button onclick="showHint(3)" style="background: #6c757d;">需要提示？</button>
-      <button onclick="showGridHelper()" style="background: #17a2b8;">網格助手</button>
+    <div class="input-group">
+      <textarea id="final-input" placeholder="透過圖像和對照表找到的訊息..." class="cipher-input"></textarea>
+      <div class="button-group">
+        <button onclick="Level3.checkAnswer()" id="final-submit" class="primary-btn">提交最終答案</button>
+        <button onclick="Level3.showHint()" class="secondary-btn">需要提示？</button>
+        <button onclick="Level3.showGridHelper()" class="tools-btn">網格助手</button>
+      </div>
     </div>
 
-    <div id="final-result"></div>
+    <div id="final-result" class="result-display"></div>
   </div>
 
   <!-- 網格助手 -->
@@ -66,83 +87,58 @@ W  M  6  F  A  0  #  C
     <h2>🔍 視覺密碼學助手</h2>
     <p>點擊下方字母來模擬起司洞洞效果：</p>
 
-    <div id="interactive-grid" style="font-family: monospace; font-size: 1.2rem; line-height: 2; text-align: center; margin: 1rem 0;">
-      <!-- 將由JavaScript生成 -->
+    <div class="interactive-grid-container">
+      <div id="interactive-grid" class="interactive-grid">
+        <!-- 將由JavaScript生成 -->
+      </div>
     </div>
 
-    <div style="margin-top: 1rem;">
-      <button onclick="clearSelection()" style="background: #dc3545;">清除選擇</button>
-      <button onclick="showSelected()" style="background: #28a745;">顯示選中字母</button>
+    <div class="grid-controls">
+      <button onclick="Level3.clearSelection()" class="secondary-btn">清除選擇</button>
+      <button onclick="Level3.showSelected()" class="primary-btn">填入選中字母</button>
     </div>
 
-    <div id="selected-letters" style="background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 10px; min-height: 40px;">
-      <strong>選中的字母：</strong><span id="letter-sequence"></span>
+    <div class="selected-letters-display">
+      <strong>選中的字母：</strong>
+      <span id="letter-sequence" class="letter-sequence">(尚未選擇)</span>
     </div>
   </div>
 
   <!-- 成功頁面 -->
-  <div class="section hidden" id="success-section">
+  <div class="section hidden success-section" id="success-section">
     <h2>🎉 挑戰完成！</h2>
     <p><strong>恭喜你成功解開了所有密碼！</strong></p>
 
-    <div class="hint" style="background: linear-gradient(135deg, #d4edda 0%, #c8e6c9 100%);">
-      <strong>🎯 最終任務完成！</strong>
-      恭喜你解開了所有的謎題！現在去找到我的 Instagram 帳號，追蹤我吧～我會知道是誰成功破解了我設計的遊戲！<br>
-      💕 期待在那裡看到你的訊息！<br>
-      <small>（你解出的答案就是我的 IG 帳號格式）</small>
-    </div>
+    <div class="success-message">
+      <div class="success-content">
+        <h3>🎯 最終任務完成！</h3>
+        <p>恭喜你解開了所有的謎題！現在去找到我的 Instagram 帳號，追蹤我吧～我會知道是誰成功破解了我設計的遊戲！</p>
+        <p>💕 期待在那裡看到你的訊息！</p>
+        <small>（你解出的答案就是我的 IG 帳號格式）</small>
+      </div>
 
-    <div style="text-align: center; margin: 2rem 0;">
-      <a href="#" target="_blank" class="button-link glow-effect" style="font-size: 1.2rem;" id="instagram-link">
-        📱 前往 Instagram
-      </a>
+      <div class="instagram-section">
+        <a href="#" target="_blank" class="instagram-btn glow-btn" id="instagram-link">
+          📱 前往 Instagram
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- 導航 -->
-  <div style="text-align: center; margin-top: 2rem;">
-    <a href="page2.html" class="button-link" style="background: #6c757d;">← 回到第二關</a>
-    <button onclick="resetGame()" style="background: #dc3545; margin-left: 10px;">重新開始遊戲</button>
+  <!-- 導航區域 -->
+  <div class="navigation-section">
+    <a href="page2.html" class="nav-btn secondary">← 回到第二關</a>
+    <button onclick="GameController.resetGame()" class="nav-btn danger">重新開始遊戲</button>
   </div>
 </div>
 
+<!-- JavaScript -->
+<script src="scripts/config.js"></script>
 <script src="scripts/crypto.js"></script>
-<script>
-  // 簡化的存取檢查函數
-  function checkAccess() {
-    try {
-      const progress = localStorage.getItem('ctf_progress');
-      console.log('讀取到的進度:', progress);
-
-      if (!progress) return false;
-
-      const data = JSON.parse(progress);
-      console.log('解析後的進度:', data);
-
-      // 檢查是否可以存取第三關：需要 level >= 3 且已完成第一、二關
-      const hasAccess = data.level >= 3 && data.completed &&
-              data.completed.includes(1) && data.completed.includes(2);
-      console.log('第三關存取權限:', hasAccess);
-
-      return hasAccess;
-    } catch (e) {
-      console.error('進度檢查錯誤:', e);
-      return false;
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('第三關載入中...');
-
-    // 執行雙重檢查
-    if (!checkAccess() || !checkPageAccess()) {
-      document.getElementById('access-check').style.display = 'block';
-      document.getElementById('main-content').style.display = 'none';
-      return;
-    }
-
-    console.log('第三關已載入，請完成最終挑戰');
-  });
-</script>
+<script src="scripts/security.js"></script>
+<script src="scripts/storage.js"></script>
+<script src="scripts/ui.js"></script>
+<script src="scripts/level3.js"></script>
+<script src="scripts/game.js"></script>
 </body>
 </html>
